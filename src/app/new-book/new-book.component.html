@@ -1,0 +1,33 @@
+<mat-card>
+  <h3 class="card-title">New Book</h3>
+
+  <form [formGroup]="bookForm" (ngSubmit)="submitForm()">
+    <!-- bookName -->
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input
+        formControlName="name"
+        matInput
+        type="text"
+        placeholder="Enter book's name"
+        required
+      />
+      <mat-error *ngIf="name.invalid">{{ getErrorMessage('name') }}</mat-error>
+    </mat-form-field>
+
+    <!-- releaseYear -->
+    <mat-form-field appearance="outline">
+      <mat-label>Year</mat-label>
+      <input
+        formControlName="year"
+        matInput
+        type="text"
+        placeholder="Enter release year"
+      />
+    </mat-form-field>
+
+    <button [disabled]="bookForm.invalid" type="submit" mat-raised-button color="accent">
+      <mat-icon>add</mat-icon>&nbsp;Add
+    </button>
+  </form>
+</mat-card>

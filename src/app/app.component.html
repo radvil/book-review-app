@@ -1,0 +1,21 @@
+<div class="app-shell">
+  <mat-toolbar color="accent">
+    <h3><mat-icon>import_contacts</mat-icon>&nbsp;{{ title }}</h3>
+  </mat-toolbar>
+
+  <section class="new-book">
+    <app-new-book></app-new-book>
+  </section>
+
+  <section>
+    <app-books
+      [books]="books"
+      [selectedBook]="selectedBook!"
+      (selectBook)="selectBook($event)"
+    ></app-books>
+  </section>
+
+  <section *ngIf="selectedBook?.hasOwnProperty('name')">
+    <app-book-review [selectedBook]="selectedBook!"></app-book-review>
+  </section>
+</div>

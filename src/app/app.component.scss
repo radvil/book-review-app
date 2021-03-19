@@ -1,0 +1,21 @@
+.app-shell {
+  margin: 1rem;
+}
+mat-toolbar {
+  margin-bottom: 1rem;
+}
+section {
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 777px) {
+  .app-shell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  section, mat-toolbar {
+    width: 77%;
+  }
+}

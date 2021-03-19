@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #f1f1ff;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: bold;
+}
+
+.card-title {
+  color: #666;
+  border-radius: 2rem;
+  width: fit-content;
+}
+
+.dfx {
+  display: flex;
+  &.aic {
+    align-items: center;
+  }
+  &.jcc {
+    justify-content: center;
+  }
+}

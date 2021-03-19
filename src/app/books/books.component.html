@@ -1,0 +1,17 @@
+<mat-card>
+  <h3 class="card-title">{{ title }}</h3>
+
+  <ul *ngIf="books.length" class="books--list">
+    <li
+      *ngFor="let b of books"
+      class="books--list-item"
+      matRipple
+      matRippleColor="#fb286775"
+      (click)="onClickBook.emit(b)"
+      [class.active]="b.name === selectedBook?.name"
+    >
+      <h2>{{ b.name }}</h2>
+      <span class="year">{{ b.year }}</span>
+    </li>
+  </ul>
+</mat-card>

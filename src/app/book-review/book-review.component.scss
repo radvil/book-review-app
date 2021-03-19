@@ -1,0 +1,52 @@
+.row {
+  margin-bottom: 1rem;
+}
+.row.scroll {
+  overflow: hidden;
+  border: 2px solid #ccc;
+  padding: .5rem;
+  ul.review--list {
+    overflow: auto;
+    height: 250px;
+  }
+}
+.review--list {
+  list-style: none;
+  padding: 0;
+}
+.review--list-item {
+  padding: .2rem 1rem;
+  border-radius: 1rem;
+  background-color: #f4f4f4;
+  margin-bottom: 1rem;
+  .email {
+    color: #555;
+    font-weight: bold;
+  }
+  .stars {
+    display: flex;
+    margin-top: 1rem;
+    mat-icon {
+      color: #ccc;
+      margin-right: .5rem;
+      color: #ffee00;
+    }
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+// large media
+@media(min-width: 777px) {
+  mat-card {
+    display: flex;
+  }
+  
+  .row {
+    flex: 1;
+    margin-bottom: unset;
+    margin-right: 1rem;
+  }
+}

@@ -1,0 +1,83 @@
+<mat-card>
+  <!-- review lists -->
+  <div class="row scroll">
+    <h3 class="card-title"><b>{{ selectedBook.name }}</b> Reviews</h3>
+    <ul *ngIf="selectedBook.reviews?.length; else noReviews" class="review--list">
+      <li *ngFor="let rv of selectedBook.reviews" matRipple class="review--list-item">
+        <div class="email">{{ rv.email }}</div>
+        <div class="note">{{ rv.note }}</div>
+        <div class="stars">
+          <mat-icon *ngFor="let star of starsArr; let i=index">{{ getIcon(rv, i) }}</mat-icon>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- placeholder -->
+  <ng-template #noReviews>
+    <div class="dfx aic jcc">
+      <h1>No Reviews</h1>
+    </div>
+  </ng-template>
+
+  <!-- new review -->
+  <div class="row">
+    <h3 class="card-title">New Review</h3>
+    <form [formGroup]="reviewForm" (ngSubmit)="submitForm()">
+      <!-- email -->
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          formControlName="email"
+          matInput
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
+        <mat-error *ngIf="email.invalid">{{
+          getErrorMessage("email")
+        }}</mat-error>
+      </mat-form-field>
+
+      <!-- note -->
+      <mat-form-field appearance="fill">
+        <mat-label>Leave a Note</mat-label>
+        <textarea
+          formControlName="note"
+          matInput
+          placeholder="Comment your review..."
+          required
+        ></textarea>
+        <mat-error *ngIf="note.invalid">{{
+          getErrorMessage("note")
+        }}</mat-error>
+      </mat-form-field>
+
+      <!-- rating -->
+      <mat-form-field appearance="fill">
+        <mat-label>Rating (1/5)</mat-label>
+        <input
+          formControlName="star"
+          matInput
+          type="number"
+          placeholder="Give your rating"
+          autocomplete="off"
+        />
+        <mat-error *ngIf="star.invalid">{{
+          getErrorMessage("star")
+        }}</mat-error>
+      </mat-form-field>
+
+      <!-- submit button -->
+      <button
+        [disabled]="reviewForm.invalid"
+        type="submit"
+        mat-flat-button
+        color="accent"
+      >
+        <mat-icon>save</mat-icon>
+        &nbsp;Save
+      </button>
+    </form>
+  </div>
+</mat-card>
