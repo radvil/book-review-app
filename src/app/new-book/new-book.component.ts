@@ -55,8 +55,7 @@ export class NewBookComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this._destroy$))
         .subscribe(res => {
           if (res == 'ok') {
-            this._snackBar.open('Book added!', 'close', { duration: 3000 });
-            alert(JSON.stringify(this.bookForm.value));
+            this._snackBar.open(`${this.name.value} added!`, 'ok', { duration: 3000 });
             this.formGroupDirective.resetForm();
           }
         })

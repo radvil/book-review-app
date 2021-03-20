@@ -13,19 +13,22 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 /** Local Components */
 import { AppComponent } from './app.component';
 import { NewBookComponent } from './new-book/new-book.component';
 import { BooksComponent } from './books/books.component';
 import { BookReviewComponent } from './book-review/book-review.component';
+import { BgImageDirective } from './_directives/bg-image.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewBookComponent,
     BooksComponent,
-    BookReviewComponent
+    BookReviewComponent,
+    BgImageDirective
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,7 @@ import { BookReviewComponent } from './book-review/book-review.component';
     MatDividerModule,
     MatRippleModule,
     MatSnackBarModule,
+    MatTooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,9 +9,9 @@
       matRippleColor="#fb286775"
       (click)="onClickBook.emit(b)"
       [class.active]="b.name === selectedBook?.name"
+      [bgImage]="b?.imageUrl"
     >
-      <h2>{{ b.name }}</h2>
-      <span class="year">{{ b.year }}</span>
+      <div class="year">{{ b.name + " (" + b.year + ")" }}</div>
     </li>
   </ul>
 </mat-card>
