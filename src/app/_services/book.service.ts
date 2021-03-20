@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AddReviewDto, IBook } from '../_interfaces';
 import { books } from '../_db';
+import { map } from 'rxjs/operators';
+import { sortByLatest } from '../_helpers';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
@@ -10,11 +12,19 @@ export class BookService {
   constructor() { }
 
   getBooks(): Observable<IBook[]> {
-    return this._bookSubject.asObservable();
+    return this._bookSubject.asObservable().pipe(
+      map(books => {
+        const sortedBooks = books.sort(sortByLatest);
+        return sortedBooks;
+      })
+    );
   }
 
   addNewBook(newBook: IBook): Observable<'ok'> {
-    const updated = [...this._bookSubject.value, newBook];
+    const updated = [
+      ...this._bookSubject.value,
+      <IBook>{ ...newBook, createdAt: new Date().toISOString() }
+    ];
     this._bookSubject.next(updated);
     return of('ok');
   }
