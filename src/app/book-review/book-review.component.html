@@ -1,13 +1,24 @@
 <mat-card>
   <!-- review lists -->
   <div class="row scroll">
-    <h3 class="card-title"><b>{{ selectedBook.name }}</b> Reviews</h3>
-    <ul *ngIf="selectedBook.reviews?.length; else noReviews" class="review--list">
-      <li *ngFor="let rv of selectedBook.reviews" matRipple class="review--list-item">
+    <h3 class="card-title">
+      <b>{{ selectedBook.name }}</b> Reviews
+    </h3>
+    <ul
+      *ngIf="selectedBook.reviews?.length; else noReviews"
+      class="review--list"
+    >
+      <li
+        *ngFor="let rv of selectedBook.reviews"
+        matRipple
+        class="review--list-item"
+      >
         <div class="email">{{ rv.email }}</div>
         <div class="note">{{ rv.note }}</div>
         <div class="stars">
-          <mat-icon *ngFor="let star of starsArr; let i=index">{{ getIcon(rv, i) }}</mat-icon>
+          <mat-icon *ngFor="let star of starsArr; let i = index">
+            {{ getIcon(rv, i) }}
+          </mat-icon>
         </div>
       </li>
     </ul>
@@ -15,14 +26,14 @@
 
   <!-- placeholder -->
   <ng-template #noReviews>
-    <div class="dfx aic jcc">
-      <h1>No Reviews</h1>
+    <div class="dfx jcc">
+      <h1 style="margin-top: 1rem;">No Reviews</h1>
     </div>
   </ng-template>
 
   <!-- new review -->
   <div class="row">
-    <h3 class="card-title">New Review</h3>
+    <h3 class="card-title">Add Your Review</h3>
     <form [formGroup]="reviewForm" (ngSubmit)="submitForm()">
       <!-- email -->
       <mat-form-field appearance="fill">
@@ -54,7 +65,7 @@
       </mat-form-field>
 
       <!-- rating -->
-      <mat-form-field appearance="fill">
+      <!-- <mat-form-field appearance="fill">
         <mat-label>Rating (1/5)</mat-label>
         <input
           formControlName="star"
@@ -66,7 +77,23 @@
         <mat-error *ngIf="star.invalid">{{
           getErrorMessage("star")
         }}</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
+      
+      <!-- alternative rating input -->
+      <div class="fx aic">
+        <button
+          *ngFor="let star of starsArr; let j = index"
+          (click)="onStarClick(j)"
+          [matTooltip]="starTooltip"
+          matTooltipPosition="above"
+          mat-icon-button
+          class="input-rate"
+          type="button"
+        >
+          <mat-icon>{{ getInputIcon(j) }}</mat-icon>
+        </button>
+        <span style="margin-left: 1rem;">{{ starTooltip }}</span>
+      </div>
 
       <!-- submit button -->
       <button

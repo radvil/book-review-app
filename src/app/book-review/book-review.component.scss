@@ -3,8 +3,6 @@
 }
 .row.scroll {
   overflow: hidden;
-  border: 2px solid #ccc;
-  padding: .5rem;
   ul.review--list {
     overflow: auto;
     height: 250px;
@@ -36,6 +34,14 @@
 
 mat-form-field {
   width: 100%;
+}
+
+.input-rate {
+  color: #ffee00;
+}
+
+button[type = submit] {
+  margin-top: 1rem;
 }
 
 // large media

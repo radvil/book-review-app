@@ -26,18 +26,19 @@ export class BookReviewComponent implements OnDestroy {
   @Input('selectedBook') selectedBook!: IBook;
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
   public starsArr = new Array(5);
+  public myStar = 1;
 
   public reviewForm = this._fb.group({
     email: ['', [Validators.required, Validators.email]],
     note: ['', [Validators.required]],
-    star: [1, [Validators.min(1), Validators.max(5)]],
+    star: [this.myStar, [Validators.min(1), Validators.max(5)]],
   });
 
   constructor(
     private _fb: FormBuilder,
     private _bookService: BookService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnDestroy(): void {
     this._destroy$.next();
@@ -56,11 +57,23 @@ export class BookReviewComponent implements OnDestroy {
     return this.reviewForm.get('star')!;
   }
 
+  get starTooltip() {
+    return `${this.myStar} / ${this.starsArr.length}`;
+  }
+
   getIcon(review: IReview, index: number) {
     if (review.star >= index + 1) {
       return 'star';
     } else {
       return 'star_border';
+    }
+  }
+
+  getInputIcon(index: number) {
+    if (this.myStar >= index + 1) {
+      return 'star';
+    } else {
+      return 'star_border'
     }
   }
 
@@ -81,6 +94,13 @@ export class BookReviewComponent implements OnDestroy {
     return;
   }
 
+  onStarClick(rating: number) {
+    this.myStar = rating + 1;
+    this.reviewForm.patchValue({ star: this.myStar });
+    this.reviewForm.updateValueAndValidity();
+    return false;
+  }
+
   submitForm(): void {
     const selectedBookId = this.selectedBook.name;
     const reviewBody = this.reviewForm.value;
@@ -94,7 +114,7 @@ export class BookReviewComponent implements OnDestroy {
             this._snackBar.open(`You review ${this.selectedBook.name}`, 'ok', {
               duration: 3000,
             });
-            alert(JSON.stringify(this.reviewForm.value));
+            this.myStar = 1;
             this.formGroupDirective.resetForm();
           }
         });
