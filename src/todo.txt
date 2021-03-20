@@ -1,0 +1,4 @@
+[✔️] Make book's background cover directive;
+[✔️] Adjust screenshots;
+[✔️] Try host to firebase so people can access via www;
+[] Make image input on add new book operation;

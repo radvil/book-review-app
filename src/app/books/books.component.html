@@ -10,6 +10,8 @@
       (click)="onClickBook.emit(b)"
       [class.active]="b.name === selectedBook?.name"
       [bgImage]="b?.imageUrl"
+      [@enter]
+      [@leave]
     >
       <div class="year">{{ b.name + " (" + b.year + ")" }}</div>
     </li>
