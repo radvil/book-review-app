@@ -1,37 +1,50 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { AddReviewDto, IBook } from '../_interfaces';
+import { BookDto, ReviewDto, IBook } from '../_interfaces';
 import { books } from '../_db';
 import { map } from 'rxjs/operators';
 import { sortByLatest } from '../_helpers';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
+  private _currentBookId = 2;
   private _bookSubject = new BehaviorSubject<IBook[]>(books);
 
-  constructor() { }
+  constructor() {}
 
   getBooks(): Observable<IBook[]> {
     return this._bookSubject.asObservable().pipe(
-      map(books => {
+      map((books) => {
         const sortedBooks = books.sort(sortByLatest);
         return sortedBooks;
       })
     );
   }
 
-  addNewBook(newBook: IBook): Observable<'ok'> {
-    const updated = [
-      ...this._bookSubject.value,
-      <IBook>{ ...newBook, createdAt: new Date().toISOString() }
-    ];
-    this._bookSubject.next(updated);
+  addNewBook(newBook: BookDto): Observable<'ok'> {
+    const updatedState = [...this._bookSubject.value, {
+      id: ++this._currentBookId,
+      ...newBook,
+      createdAt: new Date().toISOString(),
+    }];
+    this._bookSubject.next(updatedState);
     return of('ok');
   }
 
-  addBookReview(dto: AddReviewDto): Observable<'ok'> {
-    const updated = this._bookSubject.value.map(book => {
-      if (book.name === dto.selectedBookId) {
+  updateBook(bookId: number, dto: BookDto): Observable<'ok'> {
+    const updatedState = this._bookSubject.value?.map((book) => {
+      if (book.id === bookId) {
+        book = { ...book, ...dto };
+      }
+      return book;
+    });
+    this._bookSubject.next(updatedState);
+    return of('ok');
+  }
+
+  addBookReview(dto: ReviewDto): Observable<'ok'> {
+    const updated = this._bookSubject.value.map((book) => {
+      if (book.id === dto.bookId) {
         if (book.reviews) {
           book.reviews.push(dto.reviewBody);
         } else {
@@ -40,16 +53,16 @@ export class BookService {
       }
       return book;
     });
-    this._bookSubject.next(updated)
-    return of('ok')
+    this._bookSubject.next(updated);
+    return of('ok');
   }
 
   /**
-   * 
+   *
    * @param bookId again I said, because we don't have the actual id generated, we use the book's name here.
    */
-  removeBook(bookId: string): Observable<'ok'> {
-    const updated = this._bookSubject.value.filter(b => b.name !== bookId);
+  removeBook(bookId: number): Observable<'ok'> {
+    const updated = this._bookSubject.value.filter((b) => b.id !== bookId);
     this._bookSubject.next(updated);
     return of('ok');
   }

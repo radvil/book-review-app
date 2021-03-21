@@ -2,6 +2,7 @@ import { IBook } from "../_interfaces/book.interface";
 
 export const books: Array<IBook> = [
   {
+    id: 1,
     name: 'Harry Potter',
     year: '2010',
     imageUrl: 'assets/covers/harry-potter.jpeg',
@@ -20,6 +21,7 @@ export const books: Array<IBook> = [
     createdAt: "2020-03-20T13:32:39.595Z"
   },
   {
+    id: 2,
     name: 'To Kill A Mockingbird',
     year: '1960',
     imageUrl: 'assets/covers/to-kill-a-mockingbird.jpeg',

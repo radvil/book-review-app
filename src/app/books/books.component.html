@@ -9,21 +9,43 @@
       floatContainer
       class="books--list-item"
       (click)="onClickBook.emit(b)"
+      (contextmenu)="onContextMenu(b, $event)"
       [class.active]="isActive(b)"
       [bgImage]="b?.imageUrl"
       [@enter]
       [@leave]
     >
-      <button (click)="deleteBook($event, b)" mat-icon-button float-button>
-        <mat-icon color="warn">delete</mat-icon>
+      <button (click)="onContextMenu(b, $event)" mat-icon-button float-button>
+        <mat-icon>more_vert</mat-icon>
       </button>
       <div class="year">{{ b.name + " (" + b.year + ")" }}</div>
     </li>
   </ul>
 
+  <!-- placeholder -->
   <ng-template #placeholder>
     <empty-placeholder>
       <h2>No Books Available yet</h2>
     </empty-placeholder>
   </ng-template>
+
+  <!-- contextMenu -->
+  <div
+    style="visibility: hidden; position: fixed"
+    [style.left]="contextMenuPosition.x"
+    [style.top]="contextMenuPosition.y"
+    [matMenuTriggerFor]="contextMenu"
+  ></div>
+  <mat-menu #contextMenu="matMenu">
+    <ng-template matMenuContent let-item="item">
+      <button mat-menu-item (click)="editBook(item)">
+        <mat-icon>edit</mat-icon>
+        Edit
+      </button>
+      <button mat-menu-item (click)="deleteBook(item)">
+        <mat-icon color="warn">delete</mat-icon>
+        Delete
+      </button>
+    </ng-template>
+  </mat-menu>
 </mat-card>

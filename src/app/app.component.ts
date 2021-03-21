@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subject } from 'rxjs';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { NewBookComponent } from './new-book/new-book.component';
 import { ConfirmDialogComponent } from './_components';
-import { IBook } from './_interfaces';
+import { BookDto, IBook } from './_interfaces';
 import { BookService } from './_services';
 
 @Component({
@@ -43,8 +44,36 @@ export class AppComponent implements OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
-  selectBook(event: IBook) {
-    this.selectedBook = event;
+  selectBook(book: IBook) {
+    this.selectedBook = book;
+  }
+
+  editBook(book: IBook) {
+    const { reviews, ...bookWithNoReviews } = book;
+    const dialog = this._dialog.open(NewBookComponent, {
+      minWidth: '777px',
+      panelClass: 'editBookPanel',
+      data: { book: bookWithNoReviews }
+    })
+      .beforeClosed()
+      .pipe(
+        filter((data: { mode: string, book: BookDto }) => data.mode === 'EDIT'),
+        switchMap((data) => this._bookService.updateBook(book.id, data.book)),
+        catchError(error => of(error)), // return default close dialog data when null
+        takeUntil(this._destroy$)
+      );
+
+    dialog.subscribe((res) => {
+      if (res === 'ok') {
+        this.selectedBook = undefined;
+        this._snackBar
+          .open(
+            `${book.name} updated successfully!`,
+            'close',
+            { duration: 3000 }
+          );
+      }
+    });
   }
 
   deleteBook(book: IBook) {
@@ -58,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
       .beforeClosed()
       .pipe(
         filter((confirmed) => confirmed),
-        switchMap(() => this._bookService.removeBook(book.name)),
+        switchMap(() => this._bookService.removeBook(book.id)),
         takeUntil(this._destroy$)
       );
 

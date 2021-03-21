@@ -12,7 +12,7 @@
         placeholder="Enter book's name"
         required
       />
-      <mat-error *ngIf="name.invalid">{{ getErrorMessage('name') }}</mat-error>
+      <mat-error *ngIf="name.invalid">{{ getErrorMessage("name") }}</mat-error>
     </mat-form-field>
 
     <!-- releaseYear -->
@@ -26,8 +26,22 @@
       />
     </mat-form-field>
 
-    <button [disabled]="bookForm.invalid" type="submit" mat-raised-button color="accent">
+    <button
+      [disabled]="bookForm.invalid"
+      type="submit"
+      mat-raised-button
+      color="accent"
+    >
       <mat-icon>add</mat-icon>&nbsp;Add
+    </button>
+
+    <button
+      *ngIf="mode === 'EDIT'"
+      style="margin-left: 1rem"
+      mat-button
+      (click)="dialogRef.close()"
+    >
+      <mat-icon>close</mat-icon>&nbsp;Cancel
     </button>
   </form>
 </mat-card>

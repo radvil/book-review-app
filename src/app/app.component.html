@@ -12,11 +12,12 @@
       [books]="books"
       [selectedBook]="selectedBook!"
       (selectBook)="selectBook($event)"
+      (editBook)="editBook($event)"
       (deleteBook)="deleteBook($event)"
     ></app-books>
   </section>
 
-  <section *ngIf="selectedBook?.hasOwnProperty('name')">
+  <section *ngIf="selectedBook?.hasOwnProperty('id')">
     <app-book-review [selectedBook]="selectedBook!"></app-book-review>
   </section>
 </div>

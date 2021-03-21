@@ -2,5 +2,6 @@
 [✔️] Adjust screenshots;
 [✔️] Try host to firebase so people can access via www;
 [✔️] Add delete operation and hover button directive;
-[] Make contextMenu for book operation (only for mobile devices);
+[✔️] Make contextMenu for book operation (only for mobile devices);
+[] Add Book auto increment unique id;
 [] Make image input on add new book operation;

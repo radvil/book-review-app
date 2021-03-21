@@ -102,12 +102,12 @@ export class BookReviewComponent implements OnDestroy {
   }
 
   submitForm(): void {
-    const selectedBookId = this.selectedBook.name;
+    const bookId = this.selectedBook.id;
     const reviewBody = this.reviewForm.value;
 
-    if (selectedBookId && reviewBody) {
+    if (bookId && reviewBody) {
       this._bookService
-        .addBookReview({ selectedBookId, reviewBody })
+        .addBookReview({ bookId, reviewBody })
         .pipe(takeUntil(this._destroy$))
         .subscribe((res) => {
           if (res === 'ok') {
