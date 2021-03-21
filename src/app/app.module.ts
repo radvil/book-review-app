@@ -13,7 +13,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -49,7 +48,6 @@ import { EmptyPlaceholderModule } from './_components';
     MatDividerModule,
     MatRippleModule,
     MatSnackBarModule,
-    MatTooltipModule,
     MatDialogModule,
     MatMenuModule,
     EmptyPlaceholderModule,

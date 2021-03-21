@@ -84,15 +84,13 @@
         <button
           *ngFor="let star of starsArr; let j = index"
           (click)="onStarClick(j)"
-          [matTooltip]="starTooltip"
-          matTooltipPosition="above"
           mat-icon-button
           class="input-rate"
           type="button"
         >
           <mat-icon>{{ getInputIcon(j) }}</mat-icon>
         </button>
-        <span style="margin-left: 1rem">{{ starTooltip }}</span>
+        <span style="margin-left: 1rem">{{ currentRateText }}</span>
       </div>
 
       <!-- submit button -->

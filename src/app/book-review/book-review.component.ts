@@ -57,7 +57,7 @@ export class BookReviewComponent implements OnDestroy {
     return this.reviewForm.get('star')!;
   }
 
-  get starTooltip() {
+  get currentRateText() {
     return `${this.myStar} / ${this.starsArr.length}`;
   }
 

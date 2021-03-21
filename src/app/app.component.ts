@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
   editBook(book: IBook) {
     const { reviews, ...bookWithNoReviews } = book;
     const dialog = this._dialog.open(NewBookComponent, {
-      minWidth: '777px',
+      width: '777px',
       panelClass: 'editBookPanel',
       data: { book: bookWithNoReviews }
     })
