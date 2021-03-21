@@ -1,4 +1,6 @@
 [✔️] Make book's background cover directive;
 [✔️] Adjust screenshots;
 [✔️] Try host to firebase so people can access via www;
+[✔️] Add delete operation and hover button directive;
+[] Make contextMenu for book operation (only for mobile devices);
 [] Make image input on add new book operation;

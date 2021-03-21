@@ -1,4 +1,10 @@
-export interface IAnimationOptions {
+/**
+ * this piece of code stolen from 'https://github.com/filipows/angular-animations'
+ * because i don't need all of the animations library 😅
+ * 
+ */
+
+ export interface IAnimationOptions {
   /**
    * Name of the animation anchor that will be used in a template
    */

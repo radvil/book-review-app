@@ -1,3 +1,9 @@
+/**
+ * this piece of code stolen from 'https://github.com/filipows/angular-animations'
+ * because i don't need all of the animations library 😅
+ * 
+ */
+
 import { animate, animation, AnimationTriggerMetadata, keyframes, style, transition, trigger } from '@angular/animations';
 
 import { IAnimationOptions } from '../_interfaces/animation';

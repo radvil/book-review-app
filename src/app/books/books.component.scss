@@ -28,7 +28,7 @@ ul.books--list {
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     background-color: #000000d4;
     backdrop-filter: blur(5px);
     color: #fff;
@@ -43,6 +43,12 @@ ul.books--list {
   .year {
     display: inline;
   }
+}
+
+[float-button] {
+  background-color: #f4f4f4;
+  color: #f00;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%);
 }
 
 // large media

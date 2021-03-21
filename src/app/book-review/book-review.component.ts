@@ -2,13 +2,13 @@ import {
   Component,
   Input,
   OnDestroy,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormGroupDirective,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';

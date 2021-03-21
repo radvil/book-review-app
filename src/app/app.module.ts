@@ -14,13 +14,15 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 /** Local Components */
 import { AppComponent } from './app.component';
 import { NewBookComponent } from './new-book/new-book.component';
 import { BooksComponent } from './books/books.component';
 import { BookReviewComponent } from './book-review/book-review.component';
-import { BgImageDirective } from './_directives/bg-image.directive';
+import { BgImageDirective, FloatButtonDirective, FloatContainerDirective } from './_directives';
+import { EmptyPlaceholderModule } from './_components';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { BgImageDirective } from './_directives/bg-image.directive';
     NewBookComponent,
     BooksComponent,
     BookReviewComponent,
-    BgImageDirective
+    BgImageDirective,
+    FloatButtonDirective,
+    FloatContainerDirective,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +49,8 @@ import { BgImageDirective } from './_directives/bg-image.directive';
     MatRippleModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatDialogModule,
+    EmptyPlaceholderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,19 +1,29 @@
 <mat-card>
   <h3 class="card-title">{{ title }}</h3>
 
-  <ul *ngIf="books.length" class="books--list">
+  <ul *ngIf="books.length; else placeholder" class="books--list">
     <li
       *ngFor="let b of books"
-      class="books--list-item"
       matRipple
       matRippleColor="#fb286775"
+      floatContainer
+      class="books--list-item"
       (click)="onClickBook.emit(b)"
-      [class.active]="b.name === selectedBook?.name"
+      [class.active]="isActive(b)"
       [bgImage]="b?.imageUrl"
       [@enter]
       [@leave]
     >
+      <button (click)="deleteBook($event, b)" mat-icon-button float-button>
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
       <div class="year">{{ b.name + " (" + b.year + ")" }}</div>
     </li>
   </ul>
+
+  <ng-template #placeholder>
+    <empty-placeholder>
+      <h2>No Books Available yet</h2>
+    </empty-placeholder>
+  </ng-template>
 </mat-card>

@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
-import { AddReviewDto, IBook } from './_interfaces';
+import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { ConfirmDialogComponent } from './_components';
+import { IBook } from './_interfaces';
 import { BookService } from './_services';
 
 @Component({
@@ -14,13 +17,17 @@ export class AppComponent implements OnInit, OnDestroy {
   public books!: IBook[];
   private _destroy$ = new Subject();
   /**
-   * Because we don't have unique id for each book, we're going to use the field.
-   * Let's just make sure to input them uniquely differs from each other.
+   * Because we don't have unique id for each book, we're going to use the name field.
+   * Let's just make sure to input book's name uniquely those differs from each other.
    *
    */
-  public selectedBook!: IBook;
+  public selectedBook!: IBook | undefined;
 
-  constructor(private _bookService: BookService) {}
+  constructor(
+    private _bookService: BookService,
+    private _dialog: MatDialog,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this._bookService
@@ -28,9 +35,6 @@ export class AppComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy$))
       .subscribe((books) => {
         this.books = books;
-        // if (this.books.length) {
-        //   this.selectedBook = this.books[0];
-        // }
       });
   }
 
@@ -41,5 +45,33 @@ export class AppComponent implements OnInit, OnDestroy {
 
   selectBook(event: IBook) {
     this.selectedBook = event;
+  }
+
+  deleteBook(book: IBook) {
+    const dialog = this._dialog
+      .open(ConfirmDialogComponent, {
+        width: '400px',
+        data: {
+          message: 'Are you sure want to delete this book ?',
+        },
+      })
+      .beforeClosed()
+      .pipe(
+        filter((confirmed) => confirmed),
+        switchMap(() => this._bookService.removeBook(book.name)),
+        takeUntil(this._destroy$)
+      );
+
+    dialog.subscribe((res) => {
+      if (res === 'ok') {
+        this.selectedBook = undefined;
+        this._snackBar
+          .open(
+            `${book.name} deleted successfully!`,
+            'close',
+            { duration: 3000 }
+          );
+      }
+    });
   }
 }

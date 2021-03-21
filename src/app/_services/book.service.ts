@@ -43,4 +43,14 @@ export class BookService {
     this._bookSubject.next(updated)
     return of('ok')
   }
+
+  /**
+   * 
+   * @param bookId again I said, because we don't have the actual id generated, we use the book's name here.
+   */
+  removeBook(bookId: string): Observable<'ok'> {
+    const updated = this._bookSubject.value.filter(b => b.name !== bookId);
+    this._bookSubject.next(updated);
+    return of('ok');
+  }
 }

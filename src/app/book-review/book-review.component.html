@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="selectedBook.name">
   <!-- review lists -->
   <div class="row scroll">
     <h3 class="card-title">
@@ -26,9 +26,9 @@
 
   <!-- placeholder -->
   <ng-template #noReviews>
-    <div class="dfx jcc">
-      <h1 style="margin-top: 1rem;">No Reviews</h1>
-    </div>
+    <empty-placeholder>
+      <h1>No Reviews</h1>
+    </empty-placeholder>
   </ng-template>
 
   <!-- new review -->
@@ -78,7 +78,7 @@
           getErrorMessage("star")
         }}</mat-error>
       </mat-form-field> -->
-      
+
       <!-- alternative rating input -->
       <div class="fx aic">
         <button
@@ -92,7 +92,7 @@
         >
           <mat-icon>{{ getInputIcon(j) }}</mat-icon>
         </button>
-        <span style="margin-left: 1rem;">{{ starTooltip }}</span>
+        <span style="margin-left: 1rem">{{ starTooltip }}</span>
       </div>
 
       <!-- submit button -->

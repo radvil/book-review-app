@@ -17,8 +17,18 @@ export class BooksComponent {
   @Input('books') books: IBook[] = [];
   @Input('selectedBook') selectedBook!: IBook;
   @Output('selectBook') onClickBook = new EventEmitter<IBook>();
+  @Output('deleteBook') onClickDeleteIcon = new EventEmitter<IBook>();
 
   constructor() {
   }
-  
+
+  isActive(book: IBook): boolean {
+    return book.name === this.selectedBook?.name;
+  }
+
+  deleteBook(event: Event, book: IBook) {
+    event.stopPropagation();
+    this.onClickDeleteIcon.emit(book);
+  }
+
 }
